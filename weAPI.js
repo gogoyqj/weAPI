@@ -67,13 +67,10 @@
 							newData[key] = defineData[key] === void 0 ? value : defineData[key]
 						})
 						// 格式化数据
-						//newData = dataFormater(newData)
-						alert(cmd)
+						newData = dataFormater(newData)
 						weAPI.exec(cmd, newData, function (resp) {
 							_log(cmd + " execute finished")
 							var callbackArr
-							alert(resp.err_msg)
-							alert(errMsg)
                 			switch (resp.err_msg) {
                 				// 用户取消
                 				case errMsg + ':cancel':
@@ -92,7 +89,6 @@
                 			}
                 			// 格式化最终输出
                 			var res = resFormater(resp)
-                			alert(callbackArr)
                 			excuteCBS(me, ["_" + callbackArr, "_done"], res)
 						})
 					}
@@ -109,8 +105,8 @@
 			                // 非异步情况
 			                // 异步数据通过回调内 this.action(newData)来调用微信接口
 			                // 异步数据不会进入到ready回调内
-			                //if(!options.async) 
-			                me[key](data);
+			                alert("options.async is : " + options.async)
+			                if(!options.async) me[key](data);
 						})
 					}
 				}, notShareAction && key)

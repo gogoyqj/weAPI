@@ -3,9 +3,14 @@
 		<meta charset="UTF-8">
 		<title>wechat js api test - weAPI</title>
 		<script src="weAPI.js"></script>
+		<style type="text/css">
+			body{
+				font-size: 20px;
+			}
+		</style>
 	</head>
 	<body>
-		<a href="#" onclick="weAPI.hideToolbar({},{done:function(){alert(3)}})">分享</a>
+		<a href="#" id="share">分享</a>
 	</body>
 	<script>
 		weAPI.ready(function() {
@@ -24,6 +29,9 @@
 			})
 			weAPI.shareTimeline({title:"yiwanpicaonima"}).ready(function(){alert(2)})
 			alert(33)
-		})
+			document.getElementById("share").onclick = function() {
+				weAPI.hideToolbar({},{done:function(){alert(3)}})
+			}
+ 		})
 	</script>
 </html>

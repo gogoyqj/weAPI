@@ -41,7 +41,6 @@
 					return "_" + mat.toLowerCase()
 				})
 			if(!key) throw new Error("插件名字不能为空")
-			alert(event)
 			weAPI[key] = function(data, options) {
 				var me = new classObject(options, function() {
 					var me = this
@@ -50,7 +49,6 @@
 						defineData && each(dataList, function(key, value) {
 							newData[key] = defineData[key] === void 0 ? value : defineData[key]
 						})
-						alert(cmd)
 						weAPI.exec(cmd, newData, function (resp) {
 							var callbackArr
                 			switch (resp.err_msg) {
@@ -79,7 +77,7 @@
 		                // 就绪
 		                if(me._ready.length) each(me._ready, function(index, func) {
 		                	func(argv)
-		                })alert(argv)
+		                })
 		                me[key](data);
 					})
 				}, notShareAction && key)

@@ -69,28 +69,30 @@
 						// 格式化数据
 						newData = dataFormater(newData)
 						weAPI.exec(cmd, newData, function (resp) {
-							var callbackArr
-                			switch (resp.err_msg) {
-                				// 用户取消
-                				case errMsg + ':cancel':
-			                        callbackArr = "cancel"
-			                        break;
-			                    // 发送成功
-			                    case errMsg + ":confirm":
-			                    case errMsg + ":ok":
-			                        callbackArr = "success"
-			                        break;
-			                    // 发送失败
-			                    case errMsg + ":fail":
-			                    default:
-			                        callbackArr = "fail"
-			                        break;
+							_log(cmd + " execute finished")
+							var callbackArr = "success"
+                			if(resp.err_msg.indexOf(errMsg) === 0) {
+                				switch (resp.err_msg) {
+	                				// 用户取消
+	                				case errMsg + ':cancel':
+				                        callbackArr = "cancel"
+				                        break;
+				                    // 发送成功
+				                    case errMsg + ":confirm":
+				                    case errMsg + ":ok":
+				                        callbackArr = "success"
+				                        break;
+				                    // 发送失败
+				                    case errMsg + ":fail":
+				                    default:
+				                        callbackArr = "fail"
+				                        break;
+	                			}
                 			}
                 			// 格式化最终输出
                 			var res = resFormater(resp)
                 			excuteCBS(me, ["_" + callbackArr, "_done"], res)
 						})
-						alert(me._done.length + " " + cmd)
 					}
 					// 关闭、隐藏之类的按钮
 					if(notShareAction) {

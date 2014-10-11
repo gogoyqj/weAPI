@@ -98,21 +98,6 @@
 			return (api = window.WeixinJSBridge) != null ? api.invoke(cmd, data, callback) : void 0;
 		}
 	}
-	weAPI.addPlugin({
-		key: "shareTimeline",
-		shareAction: true,
-		//cmd: "shareTimeline", // 默认取同key
-		dataList: {
-			"appid":"",
-            "img_url":"",
-            "link":"",
-            "desc":"",
-            "title":"",
-            "img_width":"640",
-            "img_height":"640"
-		}
-
-	})
 	/**
 	 * @param {OBJECT} options 配置
 	 * @param {FUNCTION} action 操作主函数

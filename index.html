@@ -41,9 +41,11 @@
 				}
 			})
 			weAPI.addPlugin({
+				key: "getNetworkType"
+			})
+			weAPI.addPlugin({
 				key: "shareTimeline",
 				shareAction: true,
-				//cmd: "shareTimeline", // 默认取同key
 				dataList: {
 					"appid":"",
 		            "img_url":"",
@@ -68,6 +70,9 @@
 				_log("weibo ready")
 			}).done(function() {
 				_log("weibo done")
+			})
+			weAPI.getNetworkType({}).done(function(arg) {
+				alert(arg)
 			})
  		})
 	</script>

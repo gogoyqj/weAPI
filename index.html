@@ -10,7 +10,10 @@
 		</style>
 	</head>
 	<body>
-		<a href="#" id="share">分享</a>
+		<a href="#" onclick="weAPI.hideOptionMenu({},{done:function(){alert(3)}})">隐藏hideOptionMenu</a>
+		<a href="#" onclick="weAPI.hideToolbar({},{done:function(){alert(3)}})">隐藏toolbar</a>
+		<a href="#" onclick="weAPI.scanQRCode({},{done:function(){alert(3)}})">scan</a>
+		<a href="#" onclick="weAPI.closeWindow({},{done:function(){alert(3)}})">关闭</a>
 	</body>
 	<script>
 		weAPI.ready(function() {
@@ -22,16 +25,21 @@
 				key: "hideToolbar"
 			})
 			weAPI.addPlugin({
-				key: "hideToolbar"
-			})
-			weAPI.addPlugin({
 				key: "closeWindow"
 			})
+			weAPI.addPlugin({
+				key: "scanQRCode"
+			})
+			weAPI.addPlugin({
+				key: "shareWeibo",
+				dataList: {
+					content: "你好",
+					url: "http://qunar.com/"
+				}
+			})
 			weAPI.shareTimeline({title:"yiwanpicaonima"}).ready(function(){alert(2)})
+			weAPI.shareWeibo({}).ready(function(){alert(2)})
 			alert(33)
-			document.getElementById("share").onclick = function() {
-				weAPI.hideToolbar({},{done:function(){alert(3)}})
-			}
  		})
 	</script>
 </html>

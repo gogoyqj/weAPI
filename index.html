@@ -65,11 +65,9 @@
 			weAPI.addPlugin({
 				key: "sendAppMessage",
 				event: "menu:share:appmessage",
-				cmd: "sendAppMessage",
 				errMsg: "send_app_msg",
 				shareAction: true,
 				dataList: {
-					//"appid":"",
 		            "img_url":"",
 		            "link":"",
 		            "desc":"",
@@ -104,6 +102,8 @@
 			})
 			weAPI.getNetworkType({}).done(function(arg) {
 				alert(arg)
+			}).fail(function(arg) {
+				alert(JSON.stringify(arg))
 			})
  		})
 	</script>

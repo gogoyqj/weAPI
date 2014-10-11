@@ -68,6 +68,7 @@
 						})
 						// 格式化数据
 						newData = dataFormater(newData)
+						alert(cmd)
 						weAPI.exec(cmd, newData, function (resp) {
 							var callbackArr
                 			switch (resp.err_msg) {

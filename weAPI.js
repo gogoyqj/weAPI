@@ -34,10 +34,10 @@
 				dataList = options.dataList || {},
 				cmd = options.cmd || key,
 				notShareAction = !options.shareAction,
-				event = options.event || "menu:" + cmd.replace(/[A_Z]/g, function(mat) {
+				event = options.event || "menu:" + cmd.replace(/[A-Z]/g, function(mat) {
 					return ":" + mat.toLowerCase()
 				}),
-				errMsg = options.errMsg || cmd.replace(/[A_Z]/g, function(mat) {
+				errMsg = options.errMsg || cmd.replace(/[A-Z]/g, function(mat) {
 					return "_" + mat.toLowerCase()
 				})
 			if(!key) throw new Error("插件名字不能为空")
@@ -67,7 +67,6 @@
 			                        callbackArr = "fail"
 			                        break;
                 			}
-                			alert(44)
                 			callbackArr = me["_" + callbackArr]
                 			each(callbackArr, function(index, cb) {
                 				cb(resp)

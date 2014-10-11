@@ -67,6 +67,7 @@
 			                        callbackArr = "fail"
 			                        break;
                 			}
+                			alert(44)
                 			callbackArr = me["_" + callbackArr]
                 			each(callbackArr, function(index, cb) {
                 				cb(resp)

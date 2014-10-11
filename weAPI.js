@@ -107,6 +107,8 @@
 			                // 非异步情况
 			                // 异步数据通过回调内 this.action(newData)来调用微信接口
 			                // 异步数据不会进入到ready回调内
+			                alert(4)
+			                alert(options.async)
 			                if(!options.async) me[key](data);
 						})
 					}

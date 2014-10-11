@@ -67,7 +67,8 @@
 							newData[key] = defineData[key] === void 0 ? value : defineData[key]
 						})
 						// 格式化数据
-						newData = dataFormater(newData)
+						//newData = dataFormater(newData)
+						alert(cmd)
 						weAPI.exec(cmd, newData, function (resp) {
 							_log(cmd + " execute finished")
 							var callbackArr
@@ -89,6 +90,7 @@
                 			}
                 			// 格式化最终输出
                 			var res = resFormater(resp)
+                			alert(callbackArr)
                 			excuteCBS(me, ["_" + callbackArr, "_done"], res)
 						})
 					}

@@ -98,7 +98,11 @@
 			}).done(function() {
 				_log("weibo done")
 			})
-			weAPI.getNetworkType({}).done(function(arg) {
+			weAPI.getNetworkType({}, {
+				done: function(arg) {
+					alert("arg:" + arg)
+				}
+			}).done(function(arg) {
 				alert(arg)
 			})
  		})

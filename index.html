@@ -7,4 +7,10 @@
 	<body>
 		<a href="#">分享</a>
 	</body>
+	<script>
+		weAPI.ready(function() {
+			alert(22)
+			weAPI.shareTimeline({}).ready(function(){alert(2)})
+		})
+	</script>
 </html>

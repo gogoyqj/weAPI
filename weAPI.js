@@ -95,6 +95,7 @@
 						})
 					}
 					// 关闭、隐藏之类的按钮
+					alert(notShareAction)
 					if(notShareAction) {
 						excuteCBS(me, ["_success", "_done"])
 					} else {

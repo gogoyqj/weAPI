@@ -66,10 +66,8 @@
 						defineData && each(dataList, function(key, value) {
 							newData[key] = defineData[key] === void 0 ? value : defineData[key]
 						})
-						// 格式化数据，也可以作为一个校验入口
-						var oldData = newData
+						// 格式化数据
 						newData = dataFormater(newData)
-						if(!newData) return excuteCBS(me, ["_fail", "_done"], oldData)
 						weAPI.exec(cmd, newData, function (resp) {
 							var callbackArr = "success"
                 			if(resp.err_msg.indexOf(errMsg) === 0) {

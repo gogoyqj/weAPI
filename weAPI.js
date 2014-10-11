@@ -11,11 +11,25 @@
 		}
 	}
 
+	function doNothing(d) {
+		return d
+	}
+
 	function isFunction(func) {
 		return typeof func === "function"
 	}
 
-	var methods = ["ready", "cancel", "done", "success", "fail", "dataLoaded"]
+	function excuteCBS(obj, arr, res) {
+		if(obj) {
+			each(arr, function(k, v) {
+				if(obj[k]) each(obj[k], function(i, func) {
+					func.call(obj, res)
+				})
+			})
+		} 
+	}
+
+	var methods = ["ready", "cancel", "done", "success", "fail"]
 
 	
 	window.weAPI = {
@@ -24,13 +38,16 @@
 		  *  @param {OBJECT} options 配置
 		  *  @p-options {string} key 插件名字
 		  *  @p-options {string} cmd 调用的微信接口名
+		  *  @p-options {function} resFormater 微信接口调用结束后，对响应数据的格式化函数，默认不做任何处理
+		  *  @p-options {function} dataFormater 传递给微信接口数据的格式化函数，默认不做任何处理
 		  *  @p-options {string} event 微信接口回调事件名，默认由cmd的驼峰形式转成:分隔
-		  *  @p-options {object} dataList 传递给接口的数据格式字段默认值
 		  *  @p-options {string} errMsg 微信err_msg的:前半部分，默认是cmd由驼峰模式转为下划线分隔
+		  *  @p-options {object} dataList 传递给接口的数据格式字段默认值
 		  */
 		addPlugin: function(options) {
 			var key = options.key,
-				func = options.func || function() {},
+				resFormater = options.resFormater || doNothing,
+				dataFormater = options.dataFormater || doNothing,
 				dataList = options.dataList || {},
 				cmd = options.cmd || key,
 				notShareAction = !options.shareAction,
@@ -49,8 +66,12 @@
 						defineData && each(dataList, function(key, value) {
 							newData[key] = defineData[key] === void 0 ? value : defineData[key]
 						})
+						alert(222)
+						// 格式化数据
+						newData = dataFormater(newData)
+						alert(22)
 						weAPI.exec(cmd, newData, function (resp) {
-							_log(JSON.stringify(resp))
+							alert(cmd + " execute finished")
 							var callbackArr
                 			switch (resp.err_msg) {
                 				// 用户取消
@@ -68,21 +89,30 @@
 			                        callbackArr = "fail"
 			                        break;
                 			}
-                			callbackArr = me["_" + callbackArr]
-                			each(callbackArr, function(index, cb) {
-                				cb.call(me, resp)
-                			})
+                			// 格式化最终输出
+                			var res = resFormater(resp)
+                			excuteCBS(me, ["_" + callbackArr, "_done"], res)
 						})
 					}
-					weAPI.on(event, function(argv) {
-		                // 就绪
-		                if(me._ready.length) each(me._ready, function(index, func) {
-		                	func.call(me, argv)
-		                })
-		                // 非异步情况
-		                // 异步数据通过回调内 this.action(newData)来调用微信接口
-		                if(!options.async) me[key](data);
-					})
+					// 关闭、隐藏之类的按钮
+					alert(notShareAction)
+					if(notShareAction) {
+						excuteCBS(me, ["_success", "_done"])
+					} else {
+						weAPI.on(event, function(argv) {
+			                // 就绪
+			                if(me._ready.length) each(me._ready, function(index, readyFunc) {
+			                	// 将data传递过去，方便在ready回调里面对data进行进一步处理
+			                	//readyFunc.call(me, data, argv)
+			                })
+			                // 非异步情况
+			                // 异步数据通过回调内 this.action(newData)来调用微信接口
+			                // 异步数据不会进入到ready回调内
+			                alert(4)
+			                alert(options.async)
+			                if(!options.async) me[key](data);
+						})
+					}
 				}, notShareAction && key)
 				return me
 			}

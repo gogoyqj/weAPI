@@ -33,6 +33,7 @@
 				func = options.func || function() {},
 				dataList = options.dataList || {},
 				cmd = options.cmd || key,
+				notShareAction = !options.shareAction,
 				event = options.event || "menu:" + cmd.replace(/[A_Z]/g, function(mat) {
 					return ":" + mat.toLowerCase()
 				}),
@@ -45,7 +46,7 @@
 					var me = this
 					me[key] = function(defineData) {
 						var newData = {}
-						each(dataList, function(key, value) {
+						defineData && each(dataList, function(key, value) {
 							newData[key] = defineData[key] === void 0 ? value : defineData[key]
 						})
 						weAPI.exec(cmd, newData, function (resp) {
@@ -79,7 +80,7 @@
 		                })
 		                me[key](data);
 					})
-				})
+				}, notShareAction && key)
 				return me
 			}
 		},
@@ -97,6 +98,7 @@
 	}
 	weAPI.addPlugin({
 		key: "shareTimeline",
+		shareAction: true,
 		//cmd: "hareTimeline", // 默认取同key
 		dataList: {
 			"appid":"",
@@ -113,13 +115,14 @@
 	 * @param {OBJECT} options 配置
 	 * @param {FUNCTION} action 操作主函数
 	 */
-	function classObject(options, action) {
+	function classObject(options, action, notShareAction) {
 		var me = this
 		each(methods, function(index, value) {
 			var cb = options && options[value]
 			me["_" + value] = cb && isFunction(cb) ? [cb] : []
 		})
 		if (isFunction(action)) action.call(me) 
+		if(notShareAction) me[notShareAction]()
 	}
 
 	each(methods, function(index, value) {
@@ -136,7 +139,7 @@
 	 */
 	weAPI.ready = function(callback) {
 		if (isFunction(callback)) {
-			if (typeof window.WeixinJSBridge == "undefined") {
+			if (typeof window.WeixinJSBridge == "undefined" && /MicroMessenger/i.test(navigator.userAgent)) {
 				var newCallback = function() {
 					callback(weAPI)
 				}

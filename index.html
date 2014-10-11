@@ -5,11 +5,14 @@
 		<script src="weAPI.js"></script>
 	</head>
 	<body>
-		<a href="#">分享</a>
+		<a href="#" onclick="weAPI.hideOptionMenu()">分享</a>
 	</body>
 	<script>
 		weAPI.ready(function() {
 			alert(22)
+			weAPI.addPlugin({
+				key: "hideOptionMenu"
+			})
 			weAPI.shareTimeline({}).ready(function(){alert(2)})
 		})
 	</script>

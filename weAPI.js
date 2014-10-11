@@ -103,7 +103,7 @@
 			                // 就绪
 			                if(me._ready.length) each(me._ready, function(index, readyFunc) {
 			                	// 将data传递过去，方便在ready回调里面对data进行进一步处理
-			                	readyFunc.call(me, data, argv)
+			                	//readyFunc.call(me, data, argv)
 			                })
 			                // 非异步情况
 			                // 异步数据通过回调内 this.action(newData)来调用微信接口

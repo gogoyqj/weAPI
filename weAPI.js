@@ -69,7 +69,6 @@
 						// 格式化数据
 						newData = dataFormater(newData)
 						weAPI.exec(cmd, newData, function (resp) {
-							_log(cmd + " execute finished")
 							var callbackArr
                 			switch (resp.err_msg) {
                 				// 用户取消

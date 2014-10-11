@@ -72,6 +72,8 @@
 						weAPI.exec(cmd, newData, function (resp) {
 							_log(cmd + " execute finished")
 							var callbackArr
+							alert(resp.err_msg)
+							alert(errMsg)
                 			switch (resp.err_msg) {
                 				// 用户取消
                 				case errMsg + ':cancel':

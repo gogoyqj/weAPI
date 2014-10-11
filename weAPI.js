@@ -90,7 +90,7 @@
                 			var res = resFormater(resp)
                 			excuteCBS(me, ["_" + callbackArr, "_done"], res)
 						})
-						alert(me._done.length)
+						alert(me._done.length + " " + cmd)
 					}
 					// 关闭、隐藏之类的按钮
 					if(notShareAction) {

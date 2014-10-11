@@ -34,10 +34,26 @@
 			})
 			weAPI.addPlugin({
 				key: "shareWeibo",
+				shareAction: true,
 				dataList: {
 					content: "你好",
 					url: "http://qunar.com/"
 				}
+			})
+			weAPI.addPlugin({
+				key: "shareTimeline",
+				shareAction: true,
+				//cmd: "shareTimeline", // 默认取同key
+				dataList: {
+					"appid":"",
+		            "img_url":"",
+		            "link":"",
+		            "desc":"",
+		            "title":"",
+		            "img_width":"640",
+		            "img_height":"640"
+				}
+
 			})
 			weAPI.shareTimeline({
 				title:"yiwanpicaonima",
@@ -53,7 +69,6 @@
 			}).done(function() {
 				_log("weibo done")
 			})
-			alert(33)
  		})
 	</script>
 </html>

@@ -90,8 +90,8 @@
 			})
 			weAPI.sendAppMessage({}).ready(function(){
 				_log("微信好友 ready")
-			}).done(function() {
-				_log("微信好友 done")
+			}).done(function(r) {
+				_log("微信好友 done" + JSON.stringify(r))
 			})
 			weAPI.shareWeibo({}).ready(function(){
 				_log("weibo ready")

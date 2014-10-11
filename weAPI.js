@@ -66,10 +66,12 @@
 						defineData && each(dataList, function(key, value) {
 							newData[key] = defineData[key] === void 0 ? value : defineData[key]
 						})
+						alert(222)
 						// 格式化数据
 						newData = dataFormater(newData)
+						alert(22)
 						weAPI.exec(cmd, newData, function (resp) {
-							_log(cmd + " execute finished")
+							alert(cmd + " execute finished")
 							var callbackArr
                 			switch (resp.err_msg) {
                 				// 用户取消

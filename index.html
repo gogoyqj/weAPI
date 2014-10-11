@@ -62,6 +62,21 @@
 				}
 
 			})
+			weAPI.addPlugin({
+				key: "sendAppMessage",
+				event: "menu:share:appmessage",
+				shareAction: true,
+				dataList: {
+					"appid":"",
+		            "img_url":"",
+		            "link":"",
+		            "desc":"",
+		            "title":"",
+		            "img_width":"640",
+		            "img_height":"640"
+				}
+
+			})
 			weAPI.shareTimeline({
 				title:"yiwanpicaonima",
 				img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
@@ -70,6 +85,11 @@
 				_log("朋友圈ready")
 			}).done(function() {
 				_log("朋友圈done")
+			})
+			weAPI.sendAppMessage({}).ready(function(){
+				_log("微信好友 ready")
+			}).done(function() {
+				_log("微信好友 done")
 			})
 			weAPI.shareWeibo({}).ready(function(){
 				_log("weibo ready")

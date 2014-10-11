@@ -22,7 +22,7 @@
 	function excuteCBS(obj, arr, res) {
 		if(obj) {
 			each(arr, function(k, v) {
-				if(obj[k]) each(obj[k], function(i, func) {
+				if(obj[v]) each(obj[v], function(i, func) {
 					func.call(obj, res)
 				})
 			})
@@ -92,7 +92,6 @@
                 			var res = resFormater(resp)
                 			excuteCBS(me, ["_" + callbackArr, "_done"], res)
 						})
-						alert(me._done)
 					}
 					// 关闭、隐藏之类的按钮
 					if(notShareAction) {

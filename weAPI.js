@@ -1,6 +1,6 @@
 /**
- *
- *
+ * 	链式，weAPI是一个命名空间，weAPI.pluginName会创建一个plugin的实例，回调内的this都是这个plugin实例
+ * 	
  */
 (function() {
 	"use strict"
@@ -20,13 +20,13 @@
 	
 	window.weAPI = {
 		/**
-		  * @method addPlugin 用以添加新的插件
-		  * @param {OBJECT} options 配置
-		  * @p-options {string} key 插件名字
-		  * @p-options {string} cmd 调用的微信接口名
-		  * @p-options {string} event 微信接口回调事件名，默认由cmd的驼峰形式转成:分隔
-		  * @p-options {object} dataList 传递给接口的数据格式字段默认值
-		  * @p-options {string} errMsg 微信err_msg的:前半部分，默认是cmd由驼峰模式转为下划线分隔
+		  *  @method addPlugin 用以添加新的插件
+		  *  @param {OBJECT} options 配置
+		  *  @p-options {string} key 插件名字
+		  *  @p-options {string} cmd 调用的微信接口名
+		  *  @p-options {string} event 微信接口回调事件名，默认由cmd的驼峰形式转成:分隔
+		  *  @p-options {object} dataList 传递给接口的数据格式字段默认值
+		  *  @p-options {string} errMsg 微信err_msg的:前半部分，默认是cmd由驼峰模式转为下划线分隔
 		  */
 		addPlugin: function(options) {
 			var key = options.key,
@@ -44,14 +44,13 @@
 			weAPI[key] = function(data, options) {
 				var me = new classObject(options, function() {
 					var me = this
-					me[key] = function(defineData) {
+					me[key] = me.action = function(defineData) {
 						var newData = {}
 						defineData && each(dataList, function(key, value) {
 							newData[key] = defineData[key] === void 0 ? value : defineData[key]
 						})
-						_log(cmd + " executing")
 						weAPI.exec(cmd, newData, function (resp) {
-							_log(cmd + " execute finished")
+							_log(JSON.stringify(resp))
 							var callbackArr
                 			switch (resp.err_msg) {
                 				// 用户取消
@@ -71,16 +70,18 @@
                 			}
                 			callbackArr = me["_" + callbackArr]
                 			each(callbackArr, function(index, cb) {
-                				cb(resp)
+                				cb.call(me, resp)
                 			})
 						})
 					}
 					weAPI.on(event, function(argv) {
 		                // 就绪
 		                if(me._ready.length) each(me._ready, function(index, func) {
-		                	func(argv)
+		                	func.call(me, argv)
 		                })
-		                me[key](data);
+		                // 非异步情况
+		                // 异步数据通过回调内 this.action(newData)来调用微信接口
+		                if(!options.async) me[key](data);
 					})
 				}, notShareAction && key)
 				return me
@@ -99,8 +100,8 @@
 		}
 	}
 	/**
-	 * @param {OBJECT} options 配置
-	 * @param {FUNCTION} action 操作主函数
+	 *  @param {OBJECT} options 配置
+	 *  @param {FUNCTION} action 操作主函数
 	 */
 	function classObject(options, action, notShareAction) {
 		var me = this
@@ -120,9 +121,9 @@
 	})
 
 	/**
-	 * @method ready
-	 * @param {FUNCTION} callback 微信js API ready后回调
-	 * @p-options {OBJECT} weAPI 传递给回调函数的weAPI对象
+	 *  @method ready
+	 *  @param {FUNCTION} callback 微信js API ready后回调
+	 *  @p-options {OBJECT} weAPI 传递给回调函数的weAPI对象
 	 */
 	weAPI.ready = function(callback) {
 		if (isFunction(callback)) {

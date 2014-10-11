@@ -16,8 +16,10 @@
 		<a href="#" onclick="weAPI.closeWindow({},{done:function(){alert(3)}})">关闭</a>
 	</body>
 	<script>
+	 	function _log(msg) {
+	 		alert(msg)
+	 	}
 		weAPI.ready(function() {
-			alert(22)
 			weAPI.addPlugin({
 				key: "hideOptionMenu"
 			})
@@ -37,8 +39,20 @@
 					url: "http://qunar.com/"
 				}
 			})
-			weAPI.shareTimeline({title:"yiwanpicaonima"}).ready(function(){alert(2)})
-			weAPI.shareWeibo({}).ready(function(){alert(2)})
+			weAPI.shareTimeline({
+				title:"yiwanpicaonima",
+				img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
+				link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
+			}).ready(function(){
+				_log("朋友圈ready")
+			}).done(function() {
+				_log("朋友圈done")
+			})
+			weAPI.shareWeibo({}).ready(function(){
+				_log("weibo ready")
+			}).done(function() {
+				_log("weibo done")
+			})
 			alert(33)
  		})
 	</script>

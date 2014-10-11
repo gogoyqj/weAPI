@@ -69,7 +69,6 @@
 						// 格式化数据
 						newData = dataFormater(newData)
 						weAPI.exec(cmd, newData, function (resp) {
-							_log(cmd + " execute finished")
 							var callbackArr = "success"
                 			if(resp.err_msg.indexOf(errMsg) === 0) {
                 				switch (resp.err_msg) {
@@ -93,6 +92,7 @@
                 			var res = resFormater(resp)
                 			excuteCBS(me, ["_" + callbackArr, "_done"], res)
 						})
+						alert(me._done)
 					}
 					// 关闭、隐藏之类的按钮
 					if(notShareAction) {

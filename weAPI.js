@@ -49,7 +49,9 @@
 						defineData && each(dataList, function(key, value) {
 							newData[key] = defineData[key] === void 0 ? value : defineData[key]
 						})
+						_log(cmd + " executing")
 						weAPI.exec(cmd, newData, function (resp) {
+							_log(cmd + " execute finished")
 							var callbackArr
                 			switch (resp.err_msg) {
                 				// 用户取消
@@ -99,7 +101,7 @@
 	weAPI.addPlugin({
 		key: "shareTimeline",
 		shareAction: true,
-		//cmd: "hareTimeline", // 默认取同key
+		//cmd: "shareTimeline", // 默认取同key
 		dataList: {
 			"appid":"",
             "img_url":"",

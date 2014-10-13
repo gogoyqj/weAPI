@@ -110,6 +110,7 @@
 	})
 
 	classObject.prototype.action = function(defineData, general) {
+		try{
 		// 支出新的接口
 		var me = this,
 			general = general || me._general,
@@ -146,6 +147,7 @@
 			var res = resFormater(resp)
 			excuteCBS(me, ["_" + callbackArr, "_done"], res)
 		}]))
+		}catch(e){alert(e)}
 	}
 
 	/**
@@ -154,8 +156,8 @@
 	 *  @p-options {OBJECT} weAPI 传递给回调函数的weAPI对象
 	 */
 	weAPI.ready = function(callback) {
-		if (isFunction(callback)) {
-			if (typeof window.WeixinJSBridge == "undefined" && /MicroMessenger/i.test(navigator.userAgent)) {
+		if (isFunction(callback) && /MicroMessenger/i.test(navigator.userAgent)) {
+			if (typeof window.WeixinJSBridge == "undefined") {
 				var newCallback = function() {
 					callback(weAPI)
 				}

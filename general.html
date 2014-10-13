@@ -89,7 +89,7 @@
 					if(notShareAction) {
 						excuteCBS(me, ["_success", "_done"])
 					} else {
-						WeixinJSBridge.on(event, function(argv) {
+						WeixinJSBridge.on(event, function(argv) {alert(event)
 			                // 就绪
 			                if(me._ready.length) each(me._ready, function(index, readyFunc) {
 			                	// 将data传递过去，方便在ready回调里面对data进行进一步处理

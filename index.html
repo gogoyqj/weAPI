@@ -13,6 +13,8 @@
 		</style>
 	</head>
 	<body>
+		<a onclick="location.search='?'+(+new Date())">reload</a>
+		<br>
 		<a href="#" onclick="weAPI.hideOptionMenu({},{done:function(){alert(3)}})">隐藏hideOptionMenu</a>
 		<a href="#" onclick="weAPI.hideToolbar({},{done:function(){alert(3)}})">隐藏toolbar</a>
 		<a href="#" onclick="weAPI.scanQRCode({},{done:function(){alert(3)}})">scan</a>

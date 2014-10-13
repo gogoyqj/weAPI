@@ -1,0 +1,101 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>wechat js api test - general - weAPI</title>
+		<meta http-equiv="pragma" content="no-cache" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui" name="viewport" />
+		<script src="weAPI.js"></script>
+		<style type="text/css">
+			body{
+				font-size: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="#" onclick="weAPI.hideOptionMenu({},{done:function(){alert(3)}})">隐藏hideOptionMenu</a>
+		<a href="#" onclick="weAPI.hideToolbar({},{done:function(){alert(3)}})">隐藏toolbar</a>
+		<a href="#" onclick="weAPI.scanQRCode({},{done:function(){alert(3)}})">scan</a>
+		<a href="#" onclick="weAPI.closeWindow({},{done:function(){alert(3)}})">关闭</a>
+	</body>
+	<script>
+	 	function _log(msg) {
+	 		alert(msg)
+	 	}
+		weAPI.ready(function() {
+			weAPI.addPlugin({
+				key: "generalShare",
+				shareAction: true,
+				dataList: {
+					"appid":"",
+		            "img_url":"",
+		            "link":"",
+		            "desc":"",
+		            "title":"",
+		            "img_width":"640",
+		            "img_height":"640"
+				},
+				dataFormater: function(data, shareTo) {
+					// 由于是引用，因此避免直接写原对象
+					var newData = {}
+					for(var i in data) {
+						newData[i] = data[i]
+					}
+					if(shareTo == 'timeline') {
+		                var title = newData.title;
+		                newData.title = newData.desc || title;
+		                newData.desc = title;
+		            }
+		            return newData
+				}
+
+			})
+			var list = [
+				[
+					"shareTimeline", "朋友圈",
+					{
+						title:"yiwanpicaonima",
+						img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
+						link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
+					}
+				],
+				[
+					"sendAppMessage",
+					"微信好友",
+					{
+						title:"yiwanpicaonima",
+						img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
+						link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
+					}
+				],
+				[
+					"shareWeibo",
+					"微博",
+					{
+						content: "你好",
+						url: "http://qunar.com/"
+					}
+				]
+			]
+			for(var i in list) {
+				var o = list[i]
+				if(weAPI[o[0]]) {
+					(function() {
+						var name = o[1]
+						weAPI.generalShare(o[2]).ready(function() {
+							_log(name + "ready")
+						}).cancel(function() {
+							_log(name + "cancle")
+						}).success(function() {
+							_log(name + "success")
+						}).fail(function() {
+							_log(name + "fail")
+						}).done(function(r) {
+							_log(name + "done" + (r ? "-" + JSON.stringify(r) : ""))
+						})
+					})()
+				}
+			}
+ 		})
+	</script>
+</html>

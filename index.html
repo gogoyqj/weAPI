@@ -149,11 +149,12 @@
 		exec = exec ||  WeixinJSBridge.invoke
 		if(defineData) {
 			// 格式化数据
-			var newData = me.dataFormater(newData, general && general.shareTo)
+			var newData = me.dataFormater(defineData, general && general.shareTo)
 			if(newData) me._data = newData
 		}
 		
 		exec.apply(WeixinJSBridge, args.concat([me._data, function (resp) {
+			alert(resp)
 			try{
 			var callbackArr = "success"
 			if(resp.err_msg && resp.err_msg.indexOf(errMsg) === 0) {

@@ -1,11 +1,8 @@
 /**
-<<<<<<< HEAD
  *
  *
-=======
  * 	链式，weAPI是一个命名空间，weAPI.pluginName会创建一个plugin的实例，回调内的this都是这个plugin实例
  * 	
->>>>>>> e6a2bb5d9c27a0e19a2108f8707ee7131af91e01
  */
 (function() {
 	"use strict"

@@ -61,14 +61,22 @@
 			weAPI[key] = function(data, options) {
 				var me = new classObject(options, function() {
 					var me = this
-					me[key] = me.action = function(defineData) {
-						var newData = {}
-						defineData && each(dataList, function(key, value) {
-							newData[key] = defineData[key] === void 0 ? value : defineData[key]
-						})
-						// 格式化数据
-						newData = dataFormater(newData)
-						weAPI.exec(cmd, newData, function (resp) {
+					me[key] = me.action = function(defineData, general) {
+						// 支出新的接口
+						var general = general || me._general,
+							exec = general && isFunction(general.generalShare) && general.generalShare,
+							args = exec ? [] : [cmd]
+						exec = exec ||  WeixinJSBridge.invoke
+						if(defineData) {
+							var newData = {}
+							defineData && each(dataList, function(key, value) {
+								newData[key] = defineData[key] === void 0 ? value : defineData[key]
+							})
+							// 格式化数据
+							newData = dataFormater(newData, general && general.shareTo)
+							if(newData) me._data = newData
+						}
+						exec.apply(WeixinJSBridge, args.concat([me._data, function (resp) {
 							var callbackArr = "success"
                 			if(resp.err_msg.indexOf(errMsg) === 0) {
                 				switch (resp.err_msg) {
@@ -91,13 +99,13 @@
                 			// 格式化最终输出
                 			var res = resFormater(resp)
                 			excuteCBS(me, ["_" + callbackArr, "_done"], res)
-						})
+						}]))
 					}
 					// 关闭、隐藏之类的按钮
 					if(notShareAction) {
 						excuteCBS(me, ["_success", "_done"])
 					} else {
-						weAPI.on(event, function(argv) {
+						WeixinJSBridge.on(event, function(argv) {
 			                // 就绪
 			                if(me._ready.length) each(me._ready, function(index, readyFunc) {
 			                	// 将data传递过去，方便在ready回调里面对data进行进一步处理
@@ -106,23 +114,12 @@
 			                // 非异步情况
 			                // 异步数据通过回调内 this.action(newData)来调用微信接口
 			                // 异步数据不会进入到ready回调内
-			                if(!options || !options.async) me[key](data);
+			                if(!options || !options.async) me[key](data, argv);
 						})
 					}
 				}, notShareAction && key)
 				return me
 			}
-		},
-		on: function(event, callback) {
-			var api
-			if (!isFunction(callback)) callback = function() {}
-			return (api = window.WeixinJSBridge) != null ? api.on(event, callback) : void 0;
-		},
-		exec: function(cmd, data, callback) {
-			var api
-			if (data == null) data = {}
-			if (!isFunction(callback)) callback = function() {}
-			return (api = window.WeixinJSBridge) != null ? api.invoke(cmd, data, callback) : void 0;
 		}
 	}
 	/**
@@ -131,6 +128,7 @@
 	 */
 	function classObject(options, action, notShareAction) {
 		var me = this
+		me._data = {}
 		each(methods, function(index, value) {
 			var cb = options && options[value]
 			me["_" + value] = cb && isFunction(cb) ? [cb] : []

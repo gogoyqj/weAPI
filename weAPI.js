@@ -110,6 +110,7 @@
 	})
 
 	classObject.prototype.action = function(defineData, general) {
+		alert(2)
 		try{
 		// 支出新的接口
 		var me = this,

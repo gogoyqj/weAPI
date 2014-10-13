@@ -111,7 +111,6 @@
 	})
 
 	classObject.prototype.action = function(defineData, general) {
-		alert(2)
 		try{
 		// 支出新的接口
 		var me = this,
@@ -125,6 +124,8 @@
 			var newData = me.dataFormater(newData, general && general.shareTo)
 			if(newData) me._data = newData
 		}
+		
+		alert(exec)
 		exec.apply(WeixinJSBridge, args.concat([me._data, function (resp) {
 			var callbackArr = "success"
 			if(resp.err_msg && resp.err_msg.indexOf(errMsg) === 0) {

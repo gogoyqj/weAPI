@@ -40,8 +40,8 @@
 				key: "shareWeibo",
 				shareAction: true,
 				dataList: {
-					content: "你好",
-					url: "http://qunar.com/"
+					content: "",
+					url: ""
 				}
 			})
 			weAPI.addPlugin({
@@ -76,32 +76,57 @@
 				}
 
 			})
-			weAPI.shareTimeline({
-				title:"yiwanpicaonima",
-				img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
-				link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
-			}).ready(function(){
-				_log("朋友圈ready")
-			}).done(function() {
-				_log("朋友圈done")
-			})
-			weAPI.sendAppMessage({
-				title:"yiwanpicaonima",
-				img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
-				link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
-			}).ready(function(){
-				_log("微信好友 ready")
-			}).done(function(r) {
-				_log("微信好友 done" + JSON.stringify(r))
-			})
-			weAPI.shareWeibo({}).ready(function(){
-				_log("weibo ready")
-			}).done(function() {
-				_log("weibo done")
-			})
-			weAPI.getNetworkType({}).done(function(arg) {
-				alert(arg)
-			})
+			var list = [
+				[
+					"shareTimeline", "朋友圈",
+					{
+						title:"yiwanpicaonima",
+						img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
+						link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
+					}
+				],
+				[
+					"sendAppMessage",
+					"微信好友",
+					{
+						title:"yiwanpicaonima",
+						img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
+						link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
+					}
+				],
+				[
+					"shareWeibo",
+					"微博",
+					{
+						content: "你好",
+						url: "http://qunar.com/"
+					}
+				],
+				[
+					"getNetworkType",
+					"网络",
+					{}
+				]
+			]
+			for(var i in list) {
+				var o = list[i]
+				if(weAPI[o[0]]) {
+					(function() {
+						var name = o[1]
+						weAPI[o[0]](o[2]).ready(function() {
+							_log(name + "ready")
+						}).cancel(function() {
+							_log(name + "cancle")
+						}).success(function() {
+							_log(name + "success")
+						}).fail(function() {
+							_log(name + "fail")
+						}).done(function(r) {
+							_log(name + "done" + (r ? "-" + JSON.stringify(r) : ""))
+						})
+					})()
+				}
+			}
  		})
 	</script>
 </html>

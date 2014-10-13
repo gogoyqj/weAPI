@@ -108,6 +108,7 @@
 	})
 
 	classObject.prototype.action = function(defineData, general) {
+		try{
 		// 支出新的接口
 		var me = this,
 			general = general || me._general,
@@ -144,6 +145,7 @@
 			var res = resFormater(resp)
 			excuteCBS(me, ["_" + callbackArr, "_done"], res)
 		}]))
+		}catch(e){alert(e)}
 	}
 
 	/**

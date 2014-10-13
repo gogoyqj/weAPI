@@ -79,7 +79,6 @@
 			                // 非异步情况
 			                // 异步数据通过回调内 this.action(newData)来调用微信接口
 			                // 异步数据不会进入到ready回调内
-			                alert(!options || !options.async)
 			                if(!options || !options.async) me[key](data, argv);
 						})
 					}
@@ -111,7 +110,6 @@
 	})
 
 	classObject.prototype.action = function(defineData, general) {
-		try{
 		// 支出新的接口
 		var me = this,
 			general = general || me._general,
@@ -121,11 +119,9 @@
 		exec = exec ||  WeixinJSBridge.invoke
 		if(defineData) {
 			// 格式化数据
-			var newData = me.dataFormater(newData, general && general.shareTo)
+			var newData = me.dataFormater(defineData, general && general.shareTo)
 			if(newData) me._data = newData
 		}
-		
-		alert(exec)
 		exec.apply(WeixinJSBridge, args.concat([me._data, function (resp) {
 			var callbackArr = "success"
 			if(resp.err_msg && resp.err_msg.indexOf(errMsg) === 0) {
@@ -147,10 +143,9 @@
     			}
 			}
 			// 格式化最终输出
-			var res = resFormater(resp)
+			var res = me.resFormater(resp)
 			excuteCBS(me, ["_" + callbackArr, "_done"], res)
 		}]))
-		}catch(e){alert(e)}
 	}
 
 	/**

@@ -65,6 +65,7 @@
 					me[key] = me.action
 					me.cmd = cmd
 					me.errMsg = errMsg
+					me.dataFormater = dataFormater
 					// 关闭、隐藏之类的按钮
 					if(notShareAction) {
 						excuteCBS(me, ["_success", "_done"])
@@ -118,10 +119,9 @@
 		exec = exec ||  WeixinJSBridge.invoke
 		if(defineData) {
 			// 格式化数据
-			var newData = dataFormater(newData, general && general.shareTo)
+			var newData = me.dataFormater(newData, general && general.shareTo)
 			if(newData) me._data = newData
 		}
-		alert(2)
 		exec.apply(WeixinJSBridge, args.concat([me._data, function (resp) {
 			var callbackArr = "success"
 			if(resp.err_msg && resp.err_msg.indexOf(errMsg) === 0) {

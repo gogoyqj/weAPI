@@ -42,13 +42,11 @@
 		  *  @p-options {function} dataFormater 传递给微信接口数据的格式化函数，默认不做任何处理
 		  *  @p-options {string} event 微信接口回调事件名，默认由cmd的驼峰形式转成:分隔
 		  *  @p-options {string} errMsg 微信err_msg的:前半部分，默认是cmd由驼峰模式转为下划线分隔
-		  *  @p-options {object} dataList 传递给接口的数据格式字段默认值
 		  */
 		addPlugin: function(options) {
 			var key = options.key,
 				resFormater = options.resFormater || doNothing,
 				dataFormater = options.dataFormater || doNothing,
-				dataList = options.dataList || {},
 				cmd = options.cmd || key,
 				notShareAction = !options.shareAction,
 				event = options.event || "menu:" + cmd.replace(/[A-Z]/g, function(mat) {
@@ -60,47 +58,13 @@
 			if(!key) throw new Error("插件名字不能为空")
 			weAPI[key] = function(data, options) {
 				var me = new classObject(options, function() {
+					if(typeof WeixinJSBridge === "undefined") return
 					var me = this
-					me[key] = me.action = function(defineData, general) {
-						// 支出新的接口
-						var general = general || me._general,
-							exec = general && isFunction(general.generalShare) && general.generalShare,
-							args = exec ? [] : [cmd]
-						exec = exec ||  WeixinJSBridge.invoke
-						if(defineData) {
-							var newData = {}
-							defineData && each(dataList, function(key, value) {
-								newData[key] = defineData[key] === void 0 ? value : defineData[key]
-							})
-							// 格式化数据
-							newData = dataFormater(newData, general && general.shareTo)
-							if(newData) me._data = newData
-						}
-						exec.apply(WeixinJSBridge, args.concat([me._data, function (resp) {
-							var callbackArr = "success"
-                			if(resp.err_msg.indexOf(errMsg) === 0) {
-                				switch (resp.err_msg) {
-	                				// 用户取消
-	                				case errMsg + ':cancel':
-				                        callbackArr = "cancel"
-				                        break;
-				                    // 发送成功
-				                    case errMsg + ":confirm":
-				                    case errMsg + ":ok":
-				                        callbackArr = "success"
-				                        break;
-				                    // 发送失败
-				                    case errMsg + ":fail":
-				                    default:
-				                        callbackArr = "fail"
-				                        break;
-	                			}
-                			}
-                			// 格式化最终输出
-                			var res = resFormater(resp)
-                			excuteCBS(me, ["_" + callbackArr, "_done"], res)
-						}]))
-					}
+					me[key] = me.action
+					me.cmd = cmd
+					me.errMsg = errMsg
+					me.dataFormater = dataFormater
+					me.resFormater = resFormater
 					// 关闭、隐藏之类的按钮
 					if(notShareAction) {
 						excuteCBS(me, ["_success", "_done"])
@@ -134,7 +98,7 @@
 			me["_" + value] = cb && isFunction(cb) ? [cb] : []
 		})
 		if (isFunction(action)) action.call(me) 
-		if(notShareAction) me[notShareAction]()
+		if(notShareAction) me.action()
 	}
 
 	each(methods, function(index, value) {
@@ -144,14 +108,53 @@
 		}
 	})
 
+	classObject.prototype.action = function(defineData, general) {
+		// 支出新的接口
+		var me = this,
+			general = general || me._general,
+			exec = general && isFunction(general.generalShare) && general.generalShare,
+			args = exec ? [] : [me.cmd],
+			errMsg = me.errMsg
+		exec = exec ||  WeixinJSBridge.invoke
+		if(defineData) {
+			// 格式化数据
+			var newData = me.dataFormater(defineData, general && general.shareTo)
+			if(newData) me._data = newData
+		}
+		exec.apply(WeixinJSBridge, args.concat([me._data, function (resp) {
+			var callbackArr = "success"
+			if(resp.err_msg && resp.err_msg.indexOf(errMsg) === 0) {
+				switch (resp.err_msg) {
+    				// 用户取消
+    				case errMsg + ':cancel':
+                        callbackArr = "cancel"
+                        break;
+                    // 发送成功
+                    case errMsg + ":confirm":
+                    case errMsg + ":ok":
+                        callbackArr = "success"
+                        break;
+                    // 发送失败
+                    case errMsg + ":fail":
+                    default:
+                        callbackArr = "fail"
+                        break;
+    			}
+			}
+			// 格式化最终输出
+			var res = me.resFormater(resp)
+			excuteCBS(me, ["_" + callbackArr, "_done"], res)
+		}]))
+	}
+
 	/**
 	 *  @method ready
 	 *  @param {FUNCTION} callback 微信js API ready后回调
 	 *  @p-options {OBJECT} weAPI 传递给回调函数的weAPI对象
 	 */
 	weAPI.ready = function(callback) {
-		if (isFunction(callback)) {
-			if (typeof window.WeixinJSBridge == "undefined" && /MicroMessenger/i.test(navigator.userAgent)) {
+		if (isFunction(callback) && /MicroMessenger/i.test(navigator.userAgent)) {
+			if (typeof window.WeixinJSBridge == "undefined") {
 				var newCallback = function() {
 					callback(weAPI)
 				}

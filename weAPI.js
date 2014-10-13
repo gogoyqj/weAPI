@@ -60,6 +60,7 @@
 			if(!key) throw new Error("插件名字不能为空")
 			weAPI[key] = function(data, options) {
 				var me = new classObject(options, function() {
+					if(typeof WeixinJSBridge === "undefined") return
 					var me = this
 					me[key] = me.action
 					me.cmd = cmd
@@ -97,7 +98,7 @@
 			me["_" + value] = cb && isFunction(cb) ? [cb] : []
 		})
 		if (isFunction(action)) action.call(me) 
-		if(notShareAction) me[notShareAction]()
+		if(notShareAction) me.action()
 	}
 
 	each(methods, function(index, value) {
@@ -108,7 +109,6 @@
 	})
 
 	classObject.prototype.action = function(defineData, general) {
-		try{
 		// 支出新的接口
 		var me = this,
 			general = general || me._general,
@@ -121,6 +121,7 @@
 			var newData = dataFormater(newData, general && general.shareTo)
 			if(newData) me._data = newData
 		}
+		alert(2)
 		exec.apply(WeixinJSBridge, args.concat([me._data, function (resp) {
 			var callbackArr = "success"
 			if(resp.err_msg && resp.err_msg.indexOf(errMsg) === 0) {
@@ -145,7 +146,6 @@
 			var res = resFormater(resp)
 			excuteCBS(me, ["_" + callbackArr, "_done"], res)
 		}]))
-		}catch(e){alert(e)}
 	}
 
 	/**

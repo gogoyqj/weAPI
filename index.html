@@ -108,18 +108,20 @@
 			for(var i in list) {
 				var o = list[i]
 				if(weAPI[o[0]]) {
-					var name = o[1]
-					weAPI[o[0]](o[2]).ready(function() {
-						_log(name + "ready")
-					}).cancel(function() {
-						_log(name + "cancle")
-					}).success(function() {
-						_log(name + "success")
-					}).fail(function() {
-						_log(name + "fail")
-					}).done(function(r) {
-						_log(name + "done" + (r ? "-" + JSON.stringify(r) : ""))
-					})
+					(function() {
+						var name = o[1]
+						weAPI[o[0]](o[2]).ready(function() {
+							_log(name + "ready")
+						}).cancel(function() {
+							_log(name + "cancle")
+						}).success(function() {
+							_log(name + "success")
+						}).fail(function() {
+							_log(name + "fail")
+						}).done(function(r) {
+							_log(name + "done" + (r ? "-" + JSON.stringify(r) : ""))
+						})
+					})()
 				}
 			}
  		})

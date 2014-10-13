@@ -104,7 +104,6 @@
 			                // 非异步情况
 			                // 异步数据通过回调内 this.action(newData)来调用微信接口
 			                // 异步数据不会进入到ready回调内
-			                alert(!options || !options.async)
 			                if(!options || !options.async) me[key](data, argv);
 						})
 					}
@@ -150,8 +149,8 @@
 			if(newData) me._data = newData
 		}
 		
-		alert(args)
 		exec.apply(WeixinJSBridge, args.concat([me._data, function (resp) {
+			try{
 			var callbackArr = "success"
 			if(resp.err_msg && resp.err_msg.indexOf(errMsg) === 0) {
 				switch (resp.err_msg) {
@@ -174,6 +173,7 @@
 			// 格式化最终输出
 			var res = resFormater(resp)
 			excuteCBS(me, ["_" + callbackArr, "_done"], res)
+			}catch(e){alert(e)}
 		}]))
 		}catch(e){alert(e)}
 	}

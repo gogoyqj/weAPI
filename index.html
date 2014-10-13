@@ -172,7 +172,7 @@
     			}
 			}
 			// 格式化最终输出
-			var res = resFormater(resp)
+			var res = me.resFormater(resp)
 			excuteCBS(me, ["_" + callbackArr, "_done"], res)
 			}catch(e){alert(e)}
 		}]))

@@ -122,6 +122,7 @@
 							_log(name + "fail")
 						}).done(function(r) {
 							_log(name + "done" + (r ? "-" + JSON.stringify(r) : ""))
+							if(name =="网络") _log(JSON.stringify(navigator))
 						})
 					})()
 				}

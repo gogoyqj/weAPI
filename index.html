@@ -142,7 +142,9 @@
 			general = general || me._general,
 			exec = general && isFunction(general.generalShare) && general.generalShare,
 			args = exec ? [] : [me.cmd],
-			errMsg = me.errMsg
+			errMsg = me.errMsg,
+			
+				resFormater = me.resFormater
 		exec = exec ||  WeixinJSBridge.invoke
 		if(defineData) {
 			// 格式化数据

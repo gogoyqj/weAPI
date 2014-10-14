@@ -67,7 +67,7 @@
 					me.resFormater = resFormater
 					// 关闭、隐藏之类的按钮
 					if(notShareAction) {
-						excuteCBS(me, ["_success", "_done"])
+						excuteCBS(me, ["_ready", "_success", "_done"])
 					} else {
 						WeixinJSBridge.on(event, function(argv) {
 			                // 就绪

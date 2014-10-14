@@ -253,12 +253,15 @@
 					}
 				]
 			]
+			var xx
 			for(var i in list) {
+				if(xx)return
+				xx = 1
 				var o = list[i]
 					(function() {
 						var name = o[1],
 						data = o[2]
-						weAPI.generalShare(data).ready(function() {
+						weAPI.generalShare(data)/*.ready(function() {
 							_log(name + "ready")
 						}).cancel(function() {
 							_log(name + "cancle")
@@ -268,7 +271,7 @@
 							_log(name + "fail")
 						}).done(function(r) {
 							_log(name + "done" + (r ? "-" + JSON.stringify(r) : ""))
-						})
+						})*/
 					})()
 			}
  		})

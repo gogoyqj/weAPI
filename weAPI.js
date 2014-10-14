@@ -42,13 +42,11 @@
 		  *  @p-options {function} dataFormater 传递给微信接口数据的格式化函数，默认不做任何处理
 		  *  @p-options {string} event 微信接口回调事件名，默认由cmd的驼峰形式转成:分隔
 		  *  @p-options {string} errMsg 微信err_msg的:前半部分，默认是cmd由驼峰模式转为下划线分隔
-		  *  @p-options {object} dataList 传递给接口的数据格式字段默认值
 		  */
 		addPlugin: function(options) {
 			var key = options.key,
 				resFormater = options.resFormater || doNothing,
 				dataFormater = options.dataFormater || doNothing,
-				dataList = options.dataList || {},
 				cmd = options.cmd || key,
 				notShareAction = !options.shareAction,
 				event = options.event || "menu:" + cmd.replace(/[A-Z]/g, function(mat) {
@@ -69,7 +67,8 @@
 					me.resFormater = resFormater
 					// 关闭、隐藏之类的按钮
 					if(notShareAction) {
-						excuteCBS(me, ["_success", "_done"])
+						excuteCBS(me, ["_ready", "_success", "_done"])
+						me.action(data)
 					} else {
 						WeixinJSBridge.on(event, function(argv) {
 			                // 就绪
@@ -83,7 +82,7 @@
 			                if(!options || !options.async) me[key](data, argv);
 						})
 					}
-				}, notShareAction && key)
+				})
 				return me
 			}
 		}
@@ -92,7 +91,7 @@
 	 *  @param {OBJECT} options 配置
 	 *  @param {FUNCTION} action 操作主函数
 	 */
-	function classObject(options, action, notShareAction) {
+	function classObject(options, action) {
 		var me = this
 		me._data = {}
 		each(methods, function(index, value) {
@@ -100,7 +99,6 @@
 			me["_" + value] = cb && isFunction(cb) ? [cb] : []
 		})
 		if (isFunction(action)) action.call(me) 
-		if(notShareAction) me.action()
 	}
 
 	each(methods, function(index, value) {

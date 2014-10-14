@@ -22,6 +22,10 @@
  * 	链式，weAPI是一个命名空间，weAPI.pluginName会创建一个plugin的实例，回调内的this都是这个plugin实例
  * 	
  */
+/**
+ * 	链式，weAPI是一个命名空间，weAPI.pluginName会创建一个plugin的实例，回调内的this都是这个plugin实例
+ * 	
+ */
 (function() {
 	"use strict"
 
@@ -87,10 +91,11 @@
 					me.resFormater = resFormater
 					// 关闭、隐藏之类的按钮
 					if(notShareAction) {
+						excuteCBS(me, ["_ready"])
+						me.action(data)
 						excuteCBS(me, ["_success", "_done"])
 					} else {
-						alert(event)
-						WeixinJSBridge.on(event, function(argv) {alert(event)
+						WeixinJSBridge.on(event, function(argv) {
 			                // 就绪
 			                if(me._ready.length) each(me._ready, function(index, readyFunc) {
 			                	// 将data传递过去，方便在ready回调里面对data进行进一步处理
@@ -102,7 +107,7 @@
 			                if(!options || !options.async) me[key](data, argv);
 						})
 					}
-				}, notShareAction && key)
+				})
 				return me
 			}
 		}
@@ -111,7 +116,7 @@
 	 *  @param {OBJECT} options 配置
 	 *  @param {FUNCTION} action 操作主函数
 	 */
-	function classObject(options, action, notShareAction) {
+	function classObject(options, action) {
 		var me = this
 		me._data = {}
 		each(methods, function(index, value) {
@@ -119,7 +124,6 @@
 			me["_" + value] = cb && isFunction(cb) ? [cb] : []
 		})
 		if (isFunction(action)) action.call(me) 
-		if(notShareAction) me.action()
 	}
 
 	each(methods, function(index, value) {
@@ -191,6 +195,7 @@
 		}
 	}
 })()
+
 
 	 	function _log(msg) {
 	 		alert(msg)

@@ -68,6 +68,7 @@
 					// 关闭、隐藏之类的按钮
 					if(notShareAction) {
 						excuteCBS(me, ["_ready", "_success", "_done"])
+						me.action(data)
 					} else {
 						WeixinJSBridge.on(event, function(argv) {
 			                // 就绪
@@ -81,7 +82,7 @@
 			                if(!options || !options.async) me[key](data, argv);
 						})
 					}
-				}, notShareAction && key)
+				})
 				return me
 			}
 		}
@@ -90,7 +91,7 @@
 	 *  @param {OBJECT} options 配置
 	 *  @param {FUNCTION} action 操作主函数
 	 */
-	function classObject(options, action, notShareAction) {
+	function classObject(options, action) {
 		var me = this
 		me._data = {}
 		each(methods, function(index, value) {
@@ -98,7 +99,6 @@
 			me["_" + value] = cb && isFunction(cb) ? [cb] : []
 		})
 		if (isFunction(action)) action.call(me) 
-		if(notShareAction) me.action()
 	}
 
 	each(methods, function(index, value) {

@@ -252,7 +252,6 @@
 			]
 			for(var i in list) {
 				var o = list[i]
-				if(weAPI[o[0]]) {
 					(function() {
 						var name = o[1]
 						weAPI.generalShare(o[2]).ready(function() {
@@ -267,7 +266,6 @@
 							_log(name + "done" + (r ? "-" + JSON.stringify(r) : ""))
 						})
 					})()
-				}
 			}
  		})
 	</script>

@@ -262,7 +262,7 @@
 					(function() {
 						var name = o[1],
 						data = o[2]
-						//weAPI.generalShare(data)/*.ready(function() {
+						weAPI.generalShare && weAPI.generalShare(data)/*.ready(function() {
 							_log(name + "ready")
 						}).cancel(function() {
 							_log(name + "cancle")

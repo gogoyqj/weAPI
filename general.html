@@ -258,8 +258,8 @@
 				_log(name + "ready")
 				if(argv) {
 					name = argv.shareTo
+					var o = list[0][2]
 					switch(argv.shareTo) {
-						var o = list[0][2];
 						// case "shareTimeline":break;
 						case "sendAppMessage": o = list[1][2];break;
 						case "shareWeibo": o = list[2][2];break;

@@ -42,6 +42,20 @@
 				key: "scanQRCode"
 			})
 			weAPI.addPlugin({
+				key: "imagePreview",
+				dataFormater: function(d) {
+					return {
+						"current": "http://file5.u148.net/2014/10/minimg/14131717823Q9.jpg",
+						"urls": [
+							"http://file5.u148.net/2014/10/minimg/14131935600OA.jpg",
+							"http://file5.u148.net/2014/10/minimg/1413191716X8M.jpg",
+							"http://file5.u148.net/2014/10/minimg/14131717823Q9.jpg",
+							"http://file5.u148.net/2014/10/minimg/1413188641EH3.jpg"
+						]
+					}
+				}
+			})
+			weAPI.addPlugin({
 				key: "shareWeibo",
 				shareAction: true,
 				dataList: {

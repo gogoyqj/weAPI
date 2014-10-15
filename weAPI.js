@@ -124,7 +124,7 @@
 		}
 		// 修复iso下 link === location.href时候实际分享出去的url不对的bug
 		if(me._data && me._data.link && location.href === me._data.link) {
-			me._data.link = me.__data.link.replace(/#__[\s]+/g, "") + "#" + parseInt((+ new Date() / 1000))
+			me._data.link = me._data.link.replace(/#__[\s]+/g, "") + "#" + parseInt((+ new Date() / 1000))
 		}
 		exec.apply(WeixinJSBridge, args.concat([me._data, function (resp) {
 			var callbackArr = "success"

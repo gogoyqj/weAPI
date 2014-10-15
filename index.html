@@ -154,7 +154,6 @@
 			var newData = me.dataFormater(defineData, general && general.shareTo)
 			if(newData) me._data = newData
 		}
-		alert(location.href)
 		me._data && me._data.link && alert(me._data.link)
 		exec.apply(WeixinJSBridge, args.concat([me._data, function (resp) {
 			var callbackArr = "success"
@@ -205,7 +204,7 @@
 		}
 	}
 })()
-
+var x = location.href
 	 	function _log(msg) {
 	 	//	alert(msg)
 	 	}
@@ -268,7 +267,7 @@
 						title:"yiwanpicaonima",
 						desc:"yiwanpicaonima",
 						img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
-						link: location.href
+						link: x
 					}
 				}
 

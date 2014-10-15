@@ -6,7 +6,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui" name="viewport" />
 		<script src="debug.js"></script>
-		<script src="weAPI.js"></script>
+		<script src="weAPI.js?v=3"></script>
 		<style type="text/css">
 			body{
 				font-size: 20px;
@@ -31,8 +31,9 @@
 		<a href="http://touch.qunar.com/">测试一下传说的链接跳转分享地址不对的bug</a>
 	</body>
 	<script>
+		alert(location.href)
 	 	function _log(msg) {
-	 		alert(msg)
+	 		// alert(msg)
 	 	}
 		weAPI.ready(function() {
 			weAPI.addPlugin({
@@ -112,7 +113,7 @@
 						title:"yiwanpicaonima",
 						desc:"yiwanpicaonima",
 						img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
-						link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
+						link: location.href
 					}
 				],
 				[

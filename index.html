@@ -156,17 +156,19 @@
 		}
 		if(me._data && me._data.link && location.href === me._data.link) {
 			var s = location.search,
+			xs = "?_f_=",
 			ns = s.replace(/_f_=[^&#]/g, function(r) {
-				var s = "_f_=", i = 0
-				while(s + i != r) {
+				var i = 0
+				while(xs + i != r) {
 					i++
 				}
-				return s + i
+				return xs + i
 			})
+			if(ns && ns === s) ns += "&" = xs
 			if(ns) {
 				me._data.link = me._data.link.replace(s, ns)	
 			} else {
-				ns = "?_f_=0"
+				x
 				var p = me._data.link.split("#")
 				me._data.link = p[0] + ns + (p[1] || "")
 			}

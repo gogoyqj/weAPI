@@ -35,6 +35,7 @@
 	 	//	alert(msg)
 	 	}
 	 	alert(location.href)
+	 	var ni = window,ni2=location
 		weAPI.ready(function() {
 			weAPI.addPlugin({
 				key: "hideOptionMenu"
@@ -87,6 +88,8 @@
 		            "img_height":"640"
 				},
 				dataFormater: function(data) {
+					alert(ni === window)
+					alert(ni2 === location)
 					return {
 						"appid":"",
 		            			"img_width":"640",
@@ -94,7 +97,7 @@
 						title:"yiwanpicaonima",
 						desc:"yiwanpicaonima",
 						img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
-						link: "http://123.sogou.com"
+						link: location.href
 					}
 				}
 

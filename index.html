@@ -154,6 +154,7 @@
 			var newData = me.dataFormater(defineData, general && general.shareTo)
 			if(newData) me._data = newData
 		}
+		alert(location.href)
 		me._data && me._data.link && alert(me._data.link)
 		exec.apply(WeixinJSBridge, args.concat([me._data, function (resp) {
 			var callbackArr = "success"
@@ -208,8 +209,6 @@
 	 	function _log(msg) {
 	 	//	alert(msg)
 	 	}
-	 	alert(location.href)
-	 	var ni = window,ni2=location
 		weAPI.ready(function() {
 			weAPI.addPlugin({
 				key: "hideOptionMenu"
@@ -262,7 +261,6 @@
 		            "img_height":"640"
 				},
 				dataFormater: function(data) {
-					alert(location.href)
 					return {
 						"appid":"",
 		            			"img_width":"640",

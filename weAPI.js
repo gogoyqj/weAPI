@@ -124,23 +124,7 @@
 		}
 		// 修复iso下 link === location.href时候实际分享出去的url不对的bug
 		if(me._data && me._data.link && location.href === me._data.link) {
-			var s = location.search,
-			xs = "?___=",
-			ns = s.replace(/___=[^&#]/g, function(r) {
-				var i = 0
-				while(xs + i != r) {
-					i++
-				}
-				return xs + i
-			})
-			if(ns && ns === s) ns += "&" + xs + "0"
-			if(ns) {
-				me._data.link = me._data.link.replace(s, ns)	
-			} else {
-				x
-				var p = me._data.link.split("#")
-				me._data.link = p[0] + ns + (p[1] || "")
-			}
+			me._data.link = me.__data.link.replace(/#__[\s]+/g, "") + "#" + parseInt((+ new Date() / 1000))
 		}
 		exec.apply(WeixinJSBridge, args.concat([me._data, function (resp) {
 			var callbackArr = "success"

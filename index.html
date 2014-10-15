@@ -154,7 +154,24 @@
 			var newData = me.dataFormater(defineData, general && general.shareTo)
 			if(newData) me._data = newData
 		}
-		me._data && me._data.link && alert(me._data.link)
+		if(me._data && me._data.link && location.href === me._data.link) {
+			var s = location.search,
+			ns = s.replace(/_f_=[^&#]/g, function(r) {
+				var s = "_f_=", i = 0
+				while(s + i != r) {
+					i++
+				}
+				return s + i
+			})
+			if(ns) {
+				me._data.link = me._data.link.replace(s, ns)	
+			} else {
+				ns = "?_f_=0"
+				var p = me._data.link.split("#")
+				me._data.link = p[0] + ns + (p[1] || "")
+			}
+		}
+		alert(me._data && me._data.link)
 		exec.apply(WeixinJSBridge, args.concat([me._data, function (resp) {
 			var callbackArr = "success"
 			if(resp.err_msg && resp.err_msg.indexOf(errMsg) === 0) {

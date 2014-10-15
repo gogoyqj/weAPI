@@ -19,11 +19,11 @@
 		return typeof func === "function"
 	}
 
-	function excuteCBS(obj, arr, res) {
+	function excuteCBS(obj, arr, res, general) {
 		if(obj) {
 			each(arr, function(k, v) {
 				if(obj[v]) each(obj[v], function(i, func) {
-					func.call(obj, res)
+					func.call(obj, res, general)
 				})
 			})
 		} 
@@ -148,7 +148,7 @@
 			}
 			// 格式化最终输出
 			var res = me.resFormater(resp)
-			excuteCBS(me, ["_" + callbackArr, "_done"], res)
+			excuteCBS(me, ["_" + callbackArr, "_done"], res, general)
 		}]))
 	}
 

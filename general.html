@@ -31,7 +31,7 @@
 				[
 					"shareTimeline", "朋友圈",
 					{
-						title:"shareTimeline",
+						title:"有趣的图片",
 						img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
 						link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
 					}
@@ -40,7 +40,7 @@
 					"sendAppMessage",
 					"微信好友",
 					{
-						title:"sendAppMessage",
+						title:"有趣的图片",
 						img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
 						link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
 					}
@@ -49,16 +49,16 @@
 					"shareWeibo",
 					"微博",
 					{
-						content: "shareWeibo",
+						content: "有趣的图片",
 						url: "http://qunar.com/"
 					}
 				]
 			]
 			var name = "hehe"
 			weAPI.generalShare(list[0][2]).ready(function(data, argv) {
-				_log(name + "ready")
 				if(argv) {
 					name = argv.shareTo
+					_log(name + "ready")
 					var o = list[0][2]
 					switch(argv.shareTo) {
 						// case "shareTimeline":break;

@@ -1,6 +1,9 @@
 微信公众平台Js API(weAPI)
 =====
 
+demo
+![image](demon.png.png)
+
 ----------
 
 ## **1. 包含哪些功能？**
@@ -168,5 +171,4 @@ weAPI.ready(function(){
 	
         分享接口不能在页面中直接调用，需使用微信菜单调用(右上角popup菜单)。
 
-## **4. demo**
-		[![NPM](demon.png.png)]
+		

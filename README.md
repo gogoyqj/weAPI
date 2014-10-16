@@ -6,7 +6,7 @@
 
 demo
 
-![image](demon.png)
+[![image](demon.png.png)](http://gogoyqj.github.io/weAPI/)
 
 ## **1. 包含哪些功能？**
     1，隐藏右上角菜单入口

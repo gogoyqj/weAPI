@@ -7,6 +7,7 @@
 		<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui" name="viewport" />
 		<script src="debug.js"></script>
 		<script src="weAPI.js?v=3"></script>
+		<script src="plugin/plugin.js?v=3"></script>
 		<style type="text/css">
 			body{
 				font-size: 20px;
@@ -24,121 +25,26 @@
 		<br>
 		<a href="#" onclick="weAPI.closeWindow({},{done:function(){alert(3)}})">关闭</a>
 		<br>
-		<a href="#" onclick="weAPI.imagePreview({},{done:function(){alert(4)}})">预览图片</a>
+		<a href="#" onclick="weAPI.imagePreview(window.imgData,{done:function(){alert(4)}})">预览图片</a>
 		<br>
 		<a href="#" onclick="window._action()">分享</a>
 		<br>
 		<a href="http://touch.qunar.com/">测试一下传说的链接跳转分享地址不对的bug</a>
 	</body>
 	<script>
-		alert(location.href)
 	 	function _log(msg) {
 	 		// alert(msg)
 	 	}
-		weAPI.ready(function() {
-			weAPI.addPlugin({
-				key: "hideOptionMenu"
-			})
-			weAPI.addPlugin({
-				key: "hideToolbar"
-			})
-			// 这玩意也是有回调的
-			weAPI.addPlugin({
-				key: "closeWindow"
-			})
-			weAPI.addPlugin({
-				key: "scanQRCode"
-			})
-			weAPI.addPlugin({
-				key: "imagePreview",
-				dataFormater: function(d) {
-					return {
-						"current": "http://file5.u148.net/2014/10/minimg/14131717823Q9.jpg",
-						"urls": [
-							"http://file5.u148.net/2014/10/minimg/14131935600OA.jpg",
-							"http://file5.u148.net/2014/10/minimg/1413191716X8M.jpg",
-							"http://file5.u148.net/2014/10/minimg/14131717823Q9.jpg",
-							"http://file5.u148.net/2014/10/minimg/1413188641EH3.jpg"
-						]
-					}
-				}
-			})
-			weAPI.addPlugin({
-				key: "shareWeibo",
-				shareAction: true,
-				dataList: {
-					content: "",
-					url: ""
-				}
-			})
-			weAPI.addPlugin({
-				key: "getNetworkType"
-			})
-			weAPI.addPlugin({
-				key: "shareTimeline",
-				shareAction: true,
-				dataList: {
-					"appid":"",
-		            "img_url":"",
-		            "link":"",
-		            "desc":"",
-		            "title":"",
-		            "img_width":"640",
-		            "img_height":"640"
-				}
-
-			})
-			weAPI.addPlugin({
-				key: "sendAppMessage",
-				event: "menu:share:appmessage",
-				errMsg: "send_app_msg",
-				shareAction: true,
-				dataList: {
-		            "img_url":"",
-		            "link":"",
-		            "desc":"",
-		            "title":"",
-		            "img_width":"640",
-		            "img_height":"640"
-				}
-
-			})
-			var list = [
-				[
-					"shareTimeline", "朋友圈",
-					{
-						"appid":"",
-		            	"img_width":"640",
-		            	"img_height":"640",
-						title:"yiwanpicaonima",
-						desc:"yiwanpicaonima",
-						img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
-						link: location.href
-					}
-				],
-				[
-					"sendAppMessage",
-					"微信好友",
-					{
-						title:"yiwanpicaonima",
-						img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
-						link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
-					}
-				],
-				[
-					"shareWeibo",
-					"微博",
-					{
-						content: "你好",
-						url: "http://qunar.com/"
-					}
-				],
-				[
-					"getNetworkType",
-					"网络",
-					{}
-				]
+	 	window.imgData = {
+	 		"current": "http://file5.u148.net/2014/10/minimg/14131717823Q9.jpg",
+			"urls": [
+				"http://file5.u148.net/2014/10/minimg/14131935600OA.jpg",
+				"http://file5.u148.net/2014/10/minimg/1413191716X8M.jpg",
+				"http://file5.u148.net/2014/10/minimg/14131717823Q9.jpg",
+				"http://file5.u148.net/2014/10/minimg/1413188641EH3.jpg"
 			]
+	 	}
+		weAPI.ready(function() {
 			for(var i in list) {
 				(function() {
 					var o = list[i]

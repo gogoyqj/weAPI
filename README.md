@@ -167,3 +167,6 @@ weAPI.ready(function(){
         除了隐藏/显示右上角菜单入口，隐藏/显示底部工具条和调用微信客户端的图片预览接口外，其余接口均有回调函数（done,success,fail,cancel）。
 	
         分享接口不能在页面中直接调用，需使用微信菜单调用(右上角popup菜单)。
+
+## **4. demo**
+		[![NPM](demon.png.png)]

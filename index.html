@@ -44,6 +44,42 @@
 				"http://file5.u148.net/2014/10/minimg/1413188641EH3.jpg"
 			]
 	 	}
+	 	var list = [
+			[
+				"shareTimeline", "朋友圈",
+				{
+					"appid":"",
+	            	"img_width":"640",
+	            	"img_height":"640",
+					title:"yiwanpicaonima",
+					desc:"yiwanpicaonima",
+					img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
+					link: location.href
+				}
+			],
+			[
+				"sendAppMessage",
+				"微信好友",
+				{
+					title:"yiwanpicaonima",
+					img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
+					link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
+				}
+			],
+			[
+				"shareWeibo",
+				"微博",
+				{
+					content: "你好",
+					url: "http://qunar.com/"
+				}
+			],
+			[
+				"getNetworkType",
+				"网络",
+				{}
+			]
+		]
 		weAPI.ready(function() {
 			for(var i in list) {
 				(function() {

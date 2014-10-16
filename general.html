@@ -6,7 +6,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui" name="viewport" />
 		<script src="debug.js"></script>
-		<script src="weAPI.js"></script>
+		<script src="weAPI.js?v=3"></script>
+		<script src="plugin/generalShare.js?v=3"></script>
 		<style type="text/css">
 			body{
 				font-size: 20px;
@@ -14,42 +15,18 @@
 		</style>
 	</head>
 	<body>
+		<br>
+		for ios wechat version >= 6
+		<br>
 		<a onclick="location.search='?'+(+new Date())">reload</a>
 		<br>
 		<a href="http://touch.qunar.com/">测试一下传说的链接跳转分享地址不对的bug</a>
 	</body>
 	<script>
 	 	function _log(msg) {
-	 		alert(msg)
+	 		// alert(msg)
 	 	}
 		weAPI.ready(function() {
-			// for ios wechat v>=6.0
-			weAPI.addPlugin({
-				key: "generalShare",
-				shareAction: true,
-				dataFormater: function(data, shareTo) {
-					// 由于是引用，因此避免直接写原对象
-					var newData = {
-						"appid":"",
-			            "img_url":"",
-			            "link":"",
-			            "desc":"",
-			            "title":"",
-			            "img_width":"640",
-			            "img_height":"640"
-					}
-					for(var i in data) {
-						newData[i] = data[i]
-					}
-					if(shareTo == 'timeline') {
-		                var title = newData.title;
-		                newData.title = newData.desc || title;
-		                newData.desc = title;
-		            }
-		            return newData
-				}
-
-			})
 			var list = [
 				[
 					"shareTimeline", "朋友圈",

@@ -1,10 +1,12 @@
 微信公众平台Js API(weAPI)
 =====
 
-demo
-![image](demon.png.png)
 
 ----------
+
+demo
+
+![image](demon.png)
 
 ## **1. 包含哪些功能？**
     1，隐藏右上角菜单入口

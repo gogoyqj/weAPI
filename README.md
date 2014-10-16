@@ -1,5 +1,5 @@
-微信公众平台Js API(weAPI)
-=====
+# 微信公众平台Js API(weAPI)
+-------------------------
 
 
 ----------
@@ -8,18 +8,23 @@ demo
 
 [![image](demon.png)](http://gogoyqj.github.io/weAPI/)
 
-## **1. 包含哪些功能？**
-    1，隐藏右上角菜单入口
-	2，显示右上角菜单入口
-	3，隐藏底部工具条
-	4，显示底部工具条
-	5，打开二维码扫描
-	6，关闭公众平台Web页面
-	7，获得网络状态
-	8，调用微信客户端的图片预览
-	9，分享至朋友圈
-	10，发送给微信上的好友
-## **2. 如何使用？**
+
+## 1. 包含哪些功能？
+-----------------
+
+1. 隐藏右上角菜单入口
+2. 显示右上角菜单入口
+3. 隐藏底部工具条
+4. 显示底部工具条
+5. 打开二维码扫描
+6. 关闭公众平台Web页面
+7. 获得网络状态
+8. 调用微信客户端的图片预览
+9. 分享至朋友圈
+10. 发送给微信上的好友
+	
+## 2. 如何使用？
+--------------
 
 *	**隐藏/显示右上角菜单入口**
 ``` javascript
@@ -33,6 +38,7 @@ weAPI.ready(function(){
     	//weAPI.showOptionMenu();
 });
 ```
+
 *	**隐藏/显示底部工具条**
 ``` javascript
 weAPI.ready(function(){
@@ -45,6 +51,7 @@ weAPI.ready(function(){
     	//weAPI.showToolbar();
 });
 ```
+
 *	**打开二维码扫描**
 ``` javascript
 weAPI.ready(function(){
@@ -63,6 +70,7 @@ weAPI.ready(function(){
     		});
 });
 ```
+
 *	**关闭公众平台Web页面**
 ``` 
 weAPI.ready(function(){
@@ -81,6 +89,7 @@ weAPI.ready(function(){
     		});
 });
 ```
+
 *	**获得网络状态**
 ``` javascript
 weAPI.ready(function(){
@@ -104,6 +113,7 @@ weAPI.ready(function(){
     		});
 });
 ```
+
 *	**调用微信客户端的图片预览**
 ``` javascript
 weAPI.ready(function(){
@@ -122,6 +132,7 @@ weAPI.ready(function(){
     	weAPI.imagePreview(imgData);
 });
 ```
+
 *	**分享相关操作**
 ``` javascript
 weAPI.ready(function(){
@@ -168,9 +179,10 @@ weAPI.ready(function(){
     		});
 });
 ```
-## **3. 备注**
-        除了隐藏/显示右上角菜单入口，隐藏/显示底部工具条和调用微信客户端的图片预览接口外，其余接口均有回调函数（done,success,fail,cancel）。
-	
-        分享接口不能在页面中直接调用，需使用微信菜单调用(右上角popup菜单)。
 
-		
+## 3. 备注
+----------
+
+除了隐藏/显示右上角菜单入口，隐藏/显示底部工具条和调用微信客户端的图片预览接口外，其余接口均有回调函数（done,success,fail,cancel）。
+	
+分享接口不能在页面中直接调用，需使用微信菜单调用(右上角popup菜单)。

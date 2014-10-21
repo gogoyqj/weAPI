@@ -67,7 +67,7 @@
 							$.ajax({
 								type:"get", 
 								dataType: "json", 
-								url: "/", 
+								url: "data.js", 
 								success: function(res){
 									if(res[o[0]]) {
 										api.action(res[o[0]], argv)

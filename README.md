@@ -6,7 +6,12 @@
 
 demo
 
-[![image](demon.png)](http://gogoyqj.github.io/weAPI/)
+###静态啊数据
+[![image](demo.png)](http://gogoyqj.github.io/weAPI/)
+
+###异步数据
+
+[![image](async.png)](http://gogoyqj.github.io/weAPI/async.html)
 
 
 ## 1. 包含哪些功能？

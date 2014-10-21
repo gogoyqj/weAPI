@@ -6,7 +6,12 @@
 
 demo
 
-[![image](demon.png)](http://gogoyqj.github.io/weAPI/)
+###静态啊数据
+[![image](demo.png)](http://gogoyqj.github.io/weAPI/)
+
+###异步数据
+
+[![image](async.png)](http://gogoyqj.github.io/weAPI/async.html)
 
 
 ## 1. 包含哪些功能？
@@ -177,6 +182,23 @@ weAPI.ready(function(){
     		.fail(function(rsp){
     			alert('shareToFriend失败：'+rsp.err_msg);
     		});
+
+            //异步数据
+            weAPI.shareTimeline({}, {
+                async: true,// 异步
+            }).ready(function(data, argv) {
+                var api = this //notice here this != weAPI
+                $.ajax({
+                    type:"get", 
+                    dataType: "json", 
+                    url: "data.js?v=5", 
+                    success: function(res){
+                        if(res.shareTimeline) {
+                            api.action(res.shareTimeline, argv)
+                        }
+                    }
+                })
+            })
 });
 ```
 

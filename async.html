@@ -63,6 +63,7 @@
 						var h = weAPI[o[0]](o[2], {
 							async: true
 						}).ready(function(data, argv) {
+							alert(data)
 							var api = this
 							$.ajax({
 								type:"get", 
@@ -74,7 +75,7 @@
 									} else {
 										alert(res)
 									}
-								}
+								},fail: function(e){alert(e)}
 							})
 						}).cancel(function() {
 							_log(name + "cancle")

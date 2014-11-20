@@ -1,13 +1,14 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>wechat js api test - weAPI</title>
+		<title>wechat js api async test - weAPI</title>
 		<meta http-equiv="pragma" content="no-cache" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui" name="viewport" />
 		<script src="debug.js"></script>
 		<script src="weAPI.js?v=3"></script>
 		<script src="plugin/plugin.js?v=3"></script>
+		<script src="http://qunarzz.com/jquery/prd/jquery-1.7.2.js"></script>
 		<style type="text/css">
 			body{
 				font-size: 20px;
@@ -16,35 +17,11 @@
 	</head>
 	<body>
 		<a onclick="location.search='?'+(+new Date())">reload</a>
-		<br>
-		<a href="#" onclick="weAPI.hideOptionMenu({},{done:function(){alert(3)}})">隐藏hideOptionMenu</a>
-		<br>
-		<a href="#" onclick="weAPI.hideToolbar({},{done:function(){alert(3)}})">隐藏toolbar</a>
-		<br>
-		<a href="#" onclick="weAPI.scanQRCode({},{done:function(){alert(3)}})">scan</a>
-		<br>
-		<a href="#" onclick="weAPI.closeWindow({},{done:function(){alert(3)}})">关闭</a>
-		<br>
-		<a href="#" onclick="weAPI.imagePreview(window.imgData,{done:function(){alert(4)}})">预览图片</a>
-		<br>
-		<a href="#" onclick="window._action()">分享</a>
-		<br>
-		<a href="http://touch.qunar.com/">测试一下传说的链接跳转分享地址不对的bug</a>
-		<br>
-		<a href="#" id="t2">分享</a>
+		<p>分享数据来源是异步</p>
 	</body>
 	<script>
 	 	function _log(msg) {
 	 		// alert(msg)
-	 	}
-	 	window.imgData = {
-	 		"current": "http://file5.u148.net/2014/10/minimg/14131717823Q9.jpg",
-			"urls": [
-				"http://file5.u148.net/2014/10/minimg/14131935600OA.jpg",
-				"http://file5.u148.net/2014/10/minimg/1413191716X8M.jpg",
-				"http://file5.u148.net/2014/10/minimg/14131717823Q9.jpg",
-				"http://file5.u148.net/2014/10/minimg/1413188641EH3.jpg"
-			]
 	 	}
 	 	var list = [
 			[
@@ -75,33 +52,30 @@
 					content: "有趣的图片",
 					url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
 				}
-			],
-			[
-				"getNetworkType",
-				"网络",
-				{}
 			]
 		]
 		weAPI.ready(function() {
-			document.getElementById("t2").onClick = function() {
-				weAPI.shareTimeline({
-						"appid":"",
-		            	"img_width":"640",
-		            	"img_height":"640",
-						title:"hey,dude!",
-						desc:"sawadicup",
-						img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
-						link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
-					}).action()
-				return false
-			}
 			for(var i in list) {
 				(function() {
 					var o = list[i]
 					if(weAPI[o[0]]) {
 						var name = o[1]
-						var h = weAPI[o[0]](o[2]).ready(function() {
-							_log(name + "ready")
+						var h = weAPI[o[0]](o[2], {
+							async: true
+						}).ready(function(data, argv) {
+							var api = this
+							$.ajax({
+								type:"get", 
+								dataType: "json", 
+								url: "data.js?v=4", 
+								success: function(res){
+									if(res[o[0]]) {
+										api.action(res[o[0]], argv)
+									} else {
+										alert(res)
+									}
+								}
+							})
 						}).cancel(function() {
 							_log(name + "cancle")
 						}).success(function() {
@@ -111,11 +85,6 @@
 						}).done(function(r) {
 							_log(name + "done" + (r ? "-" + JSON.stringify(r) : ""))
 						})
-						if(name === "shareTimeline") {
-							window._action = function() {
-								h.action(o[2])
-							}
-						}
 					}
 				})()
 			}

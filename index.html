@@ -22,6 +22,8 @@
 		<a href="#" onclick="weAPI.closeWindow({},{done:function(){alert(3)}})">关闭</a>
 		<br>
 		<a href="http://touch.qunar.com/">测试一下传说的链接跳转分享地址不对的bug</a>
+		<br>
+		<a href="#" id="t2">分享</a>
 	</body>
 	<script>
 	 	function _log(msg) {
@@ -81,6 +83,18 @@
 				}
 
 			})
+			document.getElementById("t2").onClick = function() {
+				weAPI.shareTimeline({
+						"appid":"",
+		            	"img_width":"640",
+		            	"img_height":"640",
+						title:"hey,dude!",
+						desc:"sawadicup",
+						img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
+						link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
+					}).action()
+				return false
+			}
 			var list = [
 				[
 					"shareTimeline", "朋友圈",

@@ -82,20 +82,20 @@
 				{}
 			]
 		]
+		document.getElementById("t2").onClick = function() {
+			alert(2)
+			weAPI.shareTimeline({
+					"appid":"",
+	            	"img_width":"640",
+	            	"img_height":"640",
+					title:"hey,dude!",
+					desc:"sawadicup",
+					img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
+					link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
+				}).action()
+			return false
+		}
 		weAPI.ready(function() {
-			document.getElementById("t2").onClick = function() {
-				alert(2)
-				weAPI.shareTimeline({
-						"appid":"",
-		            	"img_width":"640",
-		            	"img_height":"640",
-						title:"hey,dude!",
-						desc:"sawadicup",
-						img_url: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg",
-						link: "http://file5.u148.net/2014/10/images/1412934017UEH.jpg"
-					}).action()
-				return false
-			}
 			for(var i in list) {
 				(function() {
 					var o = list[i]

@@ -1,4 +1,4 @@
-(function() {
+;(function() {
 	function formaterShareData(data){
 		var ret = {
 			'appid' : data.appId ? data.appId : '',
@@ -76,4 +76,4 @@
 			return ret;
 		}
 	});
-})()
+})();

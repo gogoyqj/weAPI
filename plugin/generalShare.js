@@ -5,7 +5,7 @@
   * @param {object} data 分享出去的数据，支持img_url,link,title,desc等参数
   * @param {object} options 配置，可以用来挂架ready,cancel,fail,success,done
   */
-weAPI.addPlugin({
+;weAPI.addPlugin({
 	key: "generalShare",
 	shareAction: true,
 	dataFormater: function(data, shareTo) {

@@ -2,7 +2,7 @@
  * @description 链式，weAPI是一个命名空间，weAPI.pluginName会创建一个plugin的实例，回调内的this都是这个plugin实例，这是一个base js，向外只提供注册插件的接口，而plugin目录里的插件才是提供接口的入口
  * 	
  */
-(function() {
+;(function() {
 	"use strict"
 
 	function each(tar, func) {
@@ -174,8 +174,8 @@
 			}
 		}
 	}
-})()
-(function() {
+})();
+;(function() {
 	function formaterShareData(data){
 		var ret = {
 			'appid' : data.appId ? data.appId : '',
@@ -253,4 +253,4 @@
 			return ret;
 		}
 	});
-})()
+})();

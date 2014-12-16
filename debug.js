@@ -1,3 +1,3 @@
 window.onerror = function(e) {
-	alert(e)
+	alert(JSON.stringify(e))
 }
